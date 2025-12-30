@@ -1,10 +1,9 @@
 ---
 /**
- * Footer — site navigation, branding, and theme toggle
+ * Footer — site navigation and branding
  * Minimal design matching brand aesthetic
  */
 import Logo from './Logo.astro';
-import ThemeToggle from './ThemeToggle.astro';
 
 const currentYear = new Date().getFullYear();
 
@@ -43,11 +42,6 @@ const links = [
           ))}
         </ul>
       </nav>
-
-      <!-- Theme toggle -->
-      <div class="footer__actions">
-        <ThemeToggle />
-      </div>
     </div>
 
     <div class="footer__bottom">
@@ -136,12 +130,6 @@ const links = [
 
   .footer__link:hover {
     color: var(--colour-cyan);
-  }
-
-  /* Actions */
-  .footer__actions {
-    display: flex;
-    align-items: center;
   }
 
   /* Bottom section */
