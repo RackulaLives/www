@@ -1,0 +1,129 @@
+---
+/**
+ * Features — showcases Rackula's key capabilities
+ */
+import FeatureCard from './FeatureCard.astro';
+import SectionHeader from './SectionHeader.astro';
+---
+
+<section class="features" id="features">
+  <div class="features__container">
+    <SectionHeader>features</SectionHeader>
+
+    <div class="features__grid">
+      <FeatureCard
+        title="Drag & Drop"
+        description="Place devices with a click. Rearrange anytime."
+      >
+        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="5 9 2 12 5 15"></polyline>
+          <polyline points="9 5 12 2 15 5"></polyline>
+          <polyline points="15 19 12 22 9 19"></polyline>
+          <polyline points="19 9 22 12 19 15"></polyline>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <line x1="12" y1="2" x2="12" y2="22"></line>
+        </svg>
+      </FeatureCard>
+
+      <FeatureCard
+        title="Export Anywhere"
+        description="PNG, SVG, or PDF. Your layout, your format."
+      >
+        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+      </FeatureCard>
+
+      <FeatureCard
+        title="NetBox Compatible"
+        description="Save as YAML. Import your gear list."
+      >
+        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <path d="m10 13-2 2 2 2"></path>
+          <path d="m14 17 2-2-2-2"></path>
+        </svg>
+      </FeatureCard>
+
+      <FeatureCard
+        title="Share Instantly"
+        description="QR codes for quick layout sharing."
+      >
+        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="5" height="5" rx="1"></rect>
+          <rect x="16" y="3" width="5" height="5" rx="1"></rect>
+          <rect x="3" y="16" width="5" height="5" rx="1"></rect>
+          <path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
+          <path d="M21 21v.01"></path>
+          <path d="M12 7v3a2 2 0 0 1-2 2H7"></path>
+          <path d="M3 12h.01"></path>
+          <path d="M12 3h.01"></path>
+          <path d="M12 16v.01"></path>
+          <path d="M16 12h1"></path>
+          <path d="M21 12v.01"></path>
+          <path d="M12 21v-1"></path>
+        </svg>
+      </FeatureCard>
+
+      <FeatureCard
+        title="Airflow View"
+        description="Visualise hot and cold zones."
+      >
+        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"></path>
+          <path d="M9.6 4.6A2 2 0 1 1 11 8H2"></path>
+          <path d="M12.6 19.4A2 2 0 1 0 14 16H2"></path>
+        </svg>
+      </FeatureCard>
+
+      <FeatureCard
+        title="Full History"
+        description="Undo, redo, never lose work."
+      >
+        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+      </FeatureCard>
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: var(--space-16) var(--space-4);
+    background-color: var(--colour-bg-darker);
+  }
+
+  .features__container {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  .features__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  /* Tablet: 2 columns */
+  @media (min-width: 640px) {
+    .features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Desktop: 3 columns */
+  @media (min-width: 1024px) {
+    .features {
+      padding: var(--space-16) var(--space-8);
+    }
+
+    .features__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
