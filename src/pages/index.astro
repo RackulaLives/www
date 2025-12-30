@@ -1,8 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
 import Features from '../components/Features.astro';
 import SelfHost from '../components/SelfHost.astro';
+import OpenSource from '../components/OpenSource.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <BaseLayout
@@ -10,6 +13,9 @@ import SelfHost from '../components/SelfHost.astro';
   description="Free, open-source rack layout designer for homelabbers. Plan your equipment arrangement before mounting. Self-host with Docker."
 >
   <Hero />
+  <HowItWorks />
   <Features />
   <SelfHost />
+  <OpenSource />
+  <Footer />
 </BaseLayout>
