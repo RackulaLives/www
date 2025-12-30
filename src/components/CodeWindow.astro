@@ -1,0 +1,294 @@
+---
+/**
+ * CodeWindow — terminal-style code display with macOS title bar
+ * Supports tabs for multiple code snippets and click-to-copy
+ */
+
+interface Tab {
+  label: string;
+  code: string;
+  language?: 'bash' | 'yaml' | 'javascript';
+}
+
+interface Props {
+  title?: string;
+  tabs: Tab[];
+  class?: string;
+}
+
+const { title = 'Terminal', tabs, class: className = '' } = Astro.props;
+
+// Generate unique ID for this instance
+const instanceId = `code-window-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class:list={['code-window', className]} data-code-window={instanceId}>
+  <!-- Title bar with dots and copy button -->
+  <div class="code-window__titlebar">
+    <div class="code-window__dots">
+      <span class="code-window__dot code-window__dot--red"></span>
+      <span class="code-window__dot code-window__dot--yellow"></span>
+      <span class="code-window__dot code-window__dot--green"></span>
+    </div>
+    <span class="code-window__title">{title}</span>
+    <button
+      class="code-window__copy"
+      type="button"
+      aria-label="Copy code to clipboard"
+      data-copy-button
+    >
+      <svg class="code-window__copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <svg class="code-window__check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Tabs (if multiple) -->
+  {tabs.length > 1 && (
+    <div class="code-window__tabs" role="tablist">
+      {tabs.map((tab, index) => (
+        <button
+          class:list={['code-window__tab', { 'code-window__tab--active': index === 0 }]}
+          role="tab"
+          aria-selected={index === 0 ? 'true' : 'false'}
+          aria-controls={`${instanceId}-panel-${index}`}
+          data-tab-index={index}
+          type="button"
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <!-- Code panels -->
+  <div class="code-window__panels">
+    {tabs.map((tab, index) => (
+      <div
+        class:list={['code-window__panel', { 'code-window__panel--active': index === 0 }]}
+        id={`${instanceId}-panel-${index}`}
+        role="tabpanel"
+        data-panel-index={index}
+        data-code={tab.code}
+      >
+        <pre><code class={`language-${tab.language || 'bash'}`}>{tab.code}</code></pre>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  // Tab switching and copy functionality
+  document.querySelectorAll('[data-code-window]').forEach((window) => {
+    const tabs = window.querySelectorAll('[data-tab-index]');
+    const panels = window.querySelectorAll('[data-panel-index]');
+    const copyButton = window.querySelector('[data-copy-button]');
+    const copyIcon = window.querySelector('.code-window__copy-icon') as HTMLElement;
+    const checkIcon = window.querySelector('.code-window__check-icon') as HTMLElement;
+
+    // Tab switching
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = tab.getAttribute('data-tab-index');
+
+        // Update tab states
+        tabs.forEach((t) => {
+          t.classList.remove('code-window__tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('code-window__tab--active');
+        tab.setAttribute('aria-selected', 'true');
+
+        // Update panel visibility
+        panels.forEach((p) => {
+          p.classList.remove('code-window__panel--active');
+        });
+        const activePanel = window.querySelector(`[data-panel-index="${index}"]`);
+        activePanel?.classList.add('code-window__panel--active');
+      });
+    });
+
+    // Copy functionality
+    copyButton?.addEventListener('click', async () => {
+      const activePanel = window.querySelector('.code-window__panel--active');
+      const code = activePanel?.getAttribute('data-code') || '';
+
+      try {
+        await navigator.clipboard.writeText(code);
+
+        // Show check icon briefly
+        if (copyIcon && checkIcon) {
+          copyIcon.style.display = 'none';
+          checkIcon.style.display = 'block';
+
+          setTimeout(() => {
+            copyIcon.style.display = 'block';
+            checkIcon.style.display = 'none';
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+  });
+</script>
+
+<style>
+  .code-window {
+    background-color: var(--colour-bg-darkest);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--colour-border);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Title bar */
+  .code-window__titlebar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--colour-bg-darker);
+    border-bottom: 1px solid var(--colour-border);
+  }
+
+  .code-window__dots {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .code-window__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .code-window__dot--red {
+    background-color: var(--colour-red);
+  }
+
+  .code-window__dot--yellow {
+    background-color: var(--colour-yellow);
+  }
+
+  .code-window__dot--green {
+    background-color: var(--colour-green);
+  }
+
+  .code-window__title {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--colour-text-secondary);
+    text-align: center;
+  }
+
+  .code-window__copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-1);
+    background: transparent;
+    border: none;
+    color: var(--colour-text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: color var(--duration-fast) var(--ease-default),
+                background-color var(--duration-fast) var(--ease-default);
+  }
+
+  .code-window__copy:hover {
+    color: var(--colour-cyan);
+    background-color: var(--colour-selection);
+  }
+
+  .code-window__copy:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+
+  /* Tabs */
+  .code-window__tabs {
+    display: flex;
+    gap: 0;
+    background-color: var(--colour-bg-darker);
+    border-bottom: 1px solid var(--colour-border);
+  }
+
+  .code-window__tab {
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--colour-text-secondary);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-default),
+                border-color var(--duration-fast) var(--ease-default);
+  }
+
+  .code-window__tab:hover {
+    color: var(--colour-text-primary);
+  }
+
+  .code-window__tab--active {
+    color: var(--colour-cyan);
+    border-bottom-color: var(--colour-cyan);
+  }
+
+  .code-window__tab:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+
+  /* Panels */
+  .code-window__panels {
+    position: relative;
+  }
+
+  .code-window__panel {
+    display: none;
+  }
+
+  .code-window__panel--active {
+    display: block;
+  }
+
+  .code-window__panel pre {
+    margin: 0;
+    padding: var(--space-4);
+    background: transparent;
+    overflow-x: auto;
+  }
+
+  .code-window__panel code {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--colour-text-primary);
+    background: none;
+    padding: 0;
+  }
+
+  /* Basic syntax highlighting */
+  .code-window__panel code :global(.comment) {
+    color: var(--colour-text-secondary);
+  }
+
+  .code-window__panel code :global(.keyword) {
+    color: var(--colour-pink);
+  }
+
+  .code-window__panel code :global(.string) {
+    color: var(--colour-yellow);
+  }
+
+  .code-window__panel code :global(.number) {
+    color: var(--colour-purple);
+  }
+</style>

@@ -1,0 +1,136 @@
+---
+/**
+ * SelfHost — Docker deployment section with code examples
+ * Shows docker run and docker-compose options in a terminal window
+ */
+import SectionHeader from './SectionHeader.astro';
+import CodeWindow from './CodeWindow.astro';
+import Button from './Button.astro';
+
+const dockerRunCode = `docker run -d \\
+  --name rackula \\
+  -p 3000:3000 \\
+  ghcr.io/rackulalives/rackula:latest`;
+
+const dockerComposeCode = `services:
+  rackula:
+    image: ghcr.io/rackulalives/rackula:latest
+    container_name: rackula
+    ports:
+      - "3000:3000"
+    restart: unless-stopped`;
+
+const tabs = [
+  { label: 'docker run', code: dockerRunCode, language: 'bash' as const },
+  { label: 'docker-compose.yml', code: dockerComposeCode, language: 'yaml' as const },
+];
+---
+
+<section class="self-host" id="self-host">
+  <div class="self-host__container">
+    <SectionHeader>self-host</SectionHeader>
+
+    <div class="self-host__content">
+      <div class="self-host__text">
+        <p class="self-host__intro">
+          Run Rackula on your own hardware. One command is all it takes.
+        </p>
+        <ul class="self-host__benefits">
+          <li>Your data stays on your network</li>
+          <li>No account required</li>
+          <li>Works offline after first load</li>
+        </ul>
+        <div class="self-host__cta">
+          <Button href="https://docs.racku.la/self-hosting" variant="ghost" size="md">
+            Read the full self-hosting guide →
+          </Button>
+        </div>
+      </div>
+
+      <div class="self-host__code">
+        <CodeWindow title="rackula" tabs={tabs} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .self-host {
+    padding: var(--space-16) var(--space-4);
+    background-color: var(--colour-bg-primary);
+  }
+
+  .self-host__container {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+
+  .self-host__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .self-host__text {
+    max-width: 32rem;
+  }
+
+  .self-host__intro {
+    font-size: var(--text-lg);
+    color: var(--colour-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .self-host__benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+  }
+
+  .self-host__benefits li {
+    position: relative;
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-2);
+    color: var(--colour-text-secondary);
+    font-size: var(--text-base);
+  }
+
+  .self-host__benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--colour-green);
+    font-weight: var(--font-semibold);
+  }
+
+  .self-host__cta {
+    margin-top: var(--space-4);
+  }
+
+  .self-host__code {
+    width: 100%;
+  }
+
+  /* Desktop: side by side layout */
+  @media (min-width: 1024px) {
+    .self-host {
+      padding: var(--space-16) var(--space-8);
+    }
+
+    .self-host__content {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: var(--space-12);
+    }
+
+    .self-host__text {
+      flex: 0 0 auto;
+      width: 320px;
+    }
+
+    .self-host__code {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+</style>
