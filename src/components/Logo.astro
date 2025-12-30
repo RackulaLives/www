@@ -1,0 +1,101 @@
+---
+/**
+ * Logo — Rackula rack mark
+ * Sharp-cornered rectangle with three horizontal slots (server rack abstraction)
+ */
+
+interface Props {
+  variant?: 'solid' | 'gradient';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+}
+
+const { variant = 'solid', size = 'md', class: className = '' } = Astro.props;
+
+const sizes = {
+  sm: 24,
+  md: 32,
+  lg: 48,
+  xl: 64,
+};
+
+const pixelSize = sizes[size];
+---
+
+<svg
+  class:list={['logo', `logo--${variant}`, `logo--${size}`, className]}
+  width={pixelSize}
+  height={pixelSize}
+  viewBox="0 0 32 32"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Rackula logo"
+>
+  {variant === 'gradient' && (
+    <defs>
+      <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="var(--colour-purple)" />
+        <stop offset="50%" stop-color="var(--colour-pink)" />
+        <stop offset="100%" stop-color="var(--colour-cyan)" />
+      </linearGradient>
+    </defs>
+  )}
+
+  <!-- Outer frame -->
+  <rect
+    x="2"
+    y="2"
+    width="28"
+    height="28"
+    rx="2"
+    stroke={variant === 'gradient' ? 'url(#logo-gradient)' : 'currentColor'}
+    stroke-width="2"
+    fill="none"
+  />
+
+  <!-- Slot 1 (top) -->
+  <rect
+    x="6"
+    y="7"
+    width="20"
+    height="4"
+    rx="1"
+    fill={variant === 'gradient' ? 'var(--colour-cyan)' : 'currentColor'}
+  />
+
+  <!-- Slot 2 (middle) -->
+  <rect
+    x="6"
+    y="14"
+    width="20"
+    height="4"
+    rx="1"
+    fill={variant === 'gradient' ? 'var(--colour-green)' : 'currentColor'}
+  />
+
+  <!-- Slot 3 (bottom) -->
+  <rect
+    x="6"
+    y="21"
+    width="20"
+    height="4"
+    rx="1"
+    fill={variant === 'gradient' ? 'var(--colour-pink)' : 'currentColor'}
+  />
+</svg>
+
+<style>
+  .logo {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .logo--solid {
+    color: var(--colour-purple);
+  }
+
+  .logo--gradient {
+    /* Gradient applied via SVG defs */
+  }
+</style>

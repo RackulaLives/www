@@ -1,0 +1,74 @@
+---
+/**
+ * FeatureCard — highlights a feature with icon, title, and description
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  class?: string;
+}
+
+const { title, description, class: className = '' } = Astro.props;
+---
+
+<div class:list={['feature-card', className]}>
+  <div class="feature-card__icon">
+    <slot name="icon" />
+  </div>
+  <h3 class="feature-card__title">{title}</h3>
+  <p class="feature-card__description">{description}</p>
+</div>
+
+<style>
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    background-color: var(--colour-bg-light);
+    border-radius: var(--radius-lg);
+    border: var(--border-thin) solid var(--colour-border);
+    transition:
+      transform var(--duration-fast) var(--ease-default),
+      box-shadow var(--duration-fast) var(--ease-default),
+      border-color var(--duration-fast) var(--ease-default);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--colour-purple);
+  }
+
+  .feature-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--colour-bg-lighter);
+    border-radius: var(--radius-md);
+    color: var(--colour-cyan);
+  }
+
+  .feature-card__icon :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .feature-card__title {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--colour-text-primary);
+    margin: 0;
+  }
+
+  .feature-card__description {
+    font-size: var(--text-sm);
+    color: var(--colour-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>

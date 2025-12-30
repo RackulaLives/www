@@ -1,0 +1,36 @@
+---
+/**
+ * SectionHeader — styled section heading with ## prefix
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<h2 class:list={['section-header', className]}>
+  <span class="section-header__prefix">## </span><slot />
+</h2>
+
+<style>
+  .section-header {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-semibold);
+    color: var(--colour-pink);
+    margin: 0 0 var(--space-6);
+  }
+
+  .section-header__prefix {
+    color: var(--colour-text-secondary);
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
