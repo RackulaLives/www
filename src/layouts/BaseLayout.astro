@@ -24,9 +24,32 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Theme initialization — must run before any rendering to prevent flash -->
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Font Loading — preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
 
     <!-- Primary Meta Tags -->
     <title>{fullTitle}</title>
@@ -60,15 +83,5 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
   </head>
   <body>
     <slot />
-
-    <script is:inline>
-      // Theme initialization — runs before paint to prevent flash
-      (function() {
-        const saved = localStorage.getItem('theme');
-        if (saved) {
-          document.documentElement.setAttribute('data-theme', saved);
-        }
-      })();
-    </script>
   </body>
 </html>
