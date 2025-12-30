@@ -101,6 +101,11 @@ const links = [
     color: var(--colour-purple);
   }
 
+  /* Keep logo purple regardless of link state */
+  .footer__logo-link :global(.logo) {
+    color: var(--colour-purple);
+  }
+
   .footer__wordmark {
     font-family: var(--font-display);
     font-size: var(--text-lg);
