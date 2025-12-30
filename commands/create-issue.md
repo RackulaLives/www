@@ -3,6 +3,7 @@
 Create well-formed GitHub Issues or triage existing ones for the ready queue.
 Designed for quick capture during development and structured issue planning.
 
+**Repository:** RackulaLives/www (Rackula marketing homepage)
 **Arguments:** `$ARGUMENTS` (optional)
 - No args: Interactive mode (guided prompts)
 - Number only (e.g., `42`): Triage existing issue
@@ -72,8 +73,8 @@ gh issue list --search "<summary keywords>" --limit 5 --json number,title,state
 If matches found, display them and ask:
 ```
 Possible duplicates:
-1. #42: Toast z-index issue (open)
-2. #38: Modal layering bug (closed)
+1. #42: Hero section mobile layout (open)
+2. #38: Pricing page alignment (closed)
 
 Are any of these duplicates? (enter number to link, 'n' to continue):
 ```
@@ -105,8 +106,8 @@ If user selects a duplicate, comment on existing issue and stop.
 Prompt for testable criteria:
 ```
 Enter acceptance criteria (one per line, empty line to finish):
-> Toast z-index exceeds modal z-index
-> Toast remains visible when modal is open
+> Hero section stacks vertically on mobile
+> CTA button is fully visible and accessible
 >
 ```
 
@@ -117,7 +118,8 @@ Format as `- [ ] <criterion>` in issue body.
 For bug/feature/chore (skip for spike):
 ```
 Enter test requirements (one per line, empty line to finish):
-> Unit test: toast z-index is higher than modal
+> Build completes without errors
+> Visual check on mobile viewport
 >
 ```
 
@@ -126,7 +128,7 @@ Enter test requirements (one per line, empty line to finish):
 Use keyword inference (see Label Inference section) and present:
 ```
 Suggested labels based on content:
-- area:ui (detected: "toast", "modal")
+- area:design (detected: "layout", "responsive")
 - size:small (default for bugs)
 
 Confirm labels? [y/n/edit]:
@@ -162,25 +164,25 @@ Assign to milestone?
 Show complete issue preview:
 ```
 === PREVIEW ===
-Title: bug: Toast appears behind modal
-Labels: bug, area:ui, size:small
-Milestone: v0.7.0
+Title: bug: Hero section breaks on mobile
+Labels: bug, area:design, size:small
+Milestone: v1.0.0
 
 ## Summary
-Toast notifications appear behind modal dialogs when both are visible.
+Hero section layout breaks on viewport widths below 640px.
 
 ## Expected Behavior
-Toast should appear above all other UI elements.
+Hero should stack vertically on mobile with properly sized text.
 
 ## Actual Behavior
-Toast renders behind modal overlay.
+Text overflows container and CTA button is clipped.
 
 ## Acceptance Criteria
-- [ ] Toast z-index exceeds modal z-index
-- [ ] Toast remains visible when modal is open
+- [ ] Hero section displays correctly on mobile (< 640px)
+- [ ] CTA button is fully visible and tappable
 
 ## Test Requirements
-- [ ] Unit test: toast z-index is higher than modal
+- [ ] Visual regression test for hero on mobile viewport
 
 ---
 
@@ -200,7 +202,7 @@ gh issue create \
 ### Step 12: Handoff Offer
 
 ```
-Issue #194 created: https://github.com/RackulaLives/Rackula/issues/194
+Issue #194 created: https://github.com/RackulaLives/www/issues/194
 
 Start implementation now? [y/n]:
 ```
@@ -235,7 +237,7 @@ Parse issue body and check for required sections:
 
 Display status:
 ```
-Issue #42: Toast appears behind modal
+Issue #42: Hero section mobile layout
 
 PRESENT:
 - [x] Description
@@ -290,7 +292,7 @@ Extract text from `$ARGUMENTS` (the quoted string).
 
 Use keyword inference tables (see Label Inference section).
 
-Example: `"Fix toast z-index bug"` → type: `bug`, area: `area:ui`
+Example: `"Fix hero section layout"` → type: `bug`, area: `area:design`
 
 ### Step 3: Duplicate Check
 
@@ -301,7 +303,7 @@ gh issue list --search "<keywords>" --limit 3 --json number,title,state
 If matches found:
 ```
 Possible duplicates:
-1. #42: Toast z-index issue (open)
+1. #42: Hero section layout issue (open)
 
 Continue creating? [y/n]:
 ```
@@ -309,8 +311,8 @@ Continue creating? [y/n]:
 ### Step 4: Brief Confirmation
 
 ```
-Title: bug: Fix toast z-index bug
-Labels: bug, triage, area:ui
+Title: bug: Fix hero section layout
+Labels: bug, triage, area:design
 
 Create? [y/n]:
 ```
@@ -333,10 +335,10 @@ gh issue create \
 ### Step 6: Output
 
 ```
-Created #195: bug: Fix toast z-index bug
-https://github.com/RackulaLives/Rackula/issues/195
+Created #195: bug: Fix hero section layout
+https://github.com/RackulaLives/www/issues/195
 
-Labels: bug, triage, area:ui (inferred)
+Labels: bug, triage, area:design (inferred)
 [Note: Issue needs triage before implementation]
 ```
 
@@ -359,14 +361,8 @@ Labels: bug, triage, area:ui (inferred)
 
 | Keywords | Label |
 |----------|-------|
-| rack, canvas, SVG, render, zoom, pan, placement | `area:canvas` |
-| toolbar, button, modal, toast, menu, panel, dialog | `area:ui` |
-| device, library, category, 0.5U, manufacturer | `area:devices` |
-| save, load, export, import, PDF, PNG, zip, YAML | `area:export` |
-| accessibility, keyboard, screen reader, focus, ARIA | `area:a11y` |
-| docs, documentation, README, CLAUDE.md | `area:docs` |
-| schema, validation, Zod, format, migration | `area:data-schema` |
-| test, vitest, playwright, e2e, coverage | `area:testing` |
+| copy, text, heading, SEO, meta, title, description, blog, post, article, page | `area:content` |
+| style, CSS, layout, responsive, mobile, color, font, animation, component, image | `area:design` |
 
 ### Size Labels (defaults)
 

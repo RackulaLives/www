@@ -1,8 +1,9 @@
-# Issue Development Workflow v5
+# Issue Development Workflow v1
 
 Pick up the next ready issue, assess it, and either complete it or document blockers.
 Designed for autonomous operation with subagent delegation and memory-assisted context.
 
+**Repository:** RackulaLives/www (Rackula marketing homepage)
 **Arguments:** `$ARGUMENTS` (optional: issue number to work on specific issue)
 
 ---
@@ -14,9 +15,9 @@ You have **explicit permission** to perform WITHOUT asking:
 | Action | Scope |
 |--------|-------|
 | Git branches | `(fix|feat|chore|refactor|test|docs)/<number>-*` |
-| Worktrees | Sibling directories `Rackarr-issue-<N>` |
-| Edit files | `src/`, `docs/`, test files |
-| Commands | `npm test`, `npm run build`, `npm run lint`, `gh` CLI |
+| Worktrees | Sibling directories `www-issue-<N>` |
+| Edit files | `src/`, `public/`, content files (`.md`, `.mdx`, `.astro`) |
+| Commands | `npm test`, `npm run build`, `npm run dev`, `gh` CLI |
 | Git ops | add, commit, push (non-main), fetch, pull, worktree |
 | PRs | `gh pr create`, `gh pr merge --squash` after checks pass |
 
@@ -79,31 +80,32 @@ START
 
 ```bash
 # Verification (run before commit)
-npm run lint && npm run test:run && npm run build
+npm run build  # Add 'npm run test' when tests are configured
 
-# Test specific file
+# Test specific file (when Vitest is set up)
 npm run test -- src/tests/<File>.test.ts --reporter=verbose
 
 # Worktrees
-git worktree add ../Rackarr-issue-<N> -b <type>/<N>-<desc>
+git worktree add ../www-issue-<N> -b <type>/<N>-<desc>
 git worktree list
-git worktree remove ../Rackarr-issue-<N>
+git worktree remove ../www-issue-<N>
 ```
 
 ### Memory Search (mem-search skill)
 
 | Purpose | Query |
 |---------|-------|
-| Recent context | `get_recent_context` with project="Rackarr", limit=30 |
+| Recent context | `get_recent_context` with project="www", limit=30 |
 | Past work on issue | `search` with query="#<N> OR <keywords>" |
 | Architectural decisions | `search` with type="decision", concepts="<area>" |
 | Similar bugs | `search` with type="bugfix", query="<error keywords>" |
 
 ### Issue Type Checklists
 
-**bug:** Reproduce → failing test → fix → check similar patterns
-**feature:** Understand AC → plan if complex → TDD → update docs
-**area:ui:** Keyboard nav, theme support, design tokens (no hardcoded values)
+**bug:** Reproduce → fix → verify build passes → check similar patterns
+**feature:** Understand AC → plan if complex → implement → update content if needed
+**area:content:** Copy accuracy, SEO meta tags, alt text, consistent tone
+**area:design:** Responsive design, accessibility, consistent styling, dark mode support
 
 ---
 
@@ -119,9 +121,9 @@ Check `git worktree list` to identify claimed issues (extract issue numbers from
 
 ### 1b. Context Loading (mem-search skill)
 
-Use `get_recent_context` for project="Rackarr", limit=30.
+Use `get_recent_context` for project="www", limit=30.
 
-If memory lacks architecture coverage, use Explore agent to summarize SPEC.md and ARCHITECTURE.md (under 500 words).
+If memory lacks architecture coverage, use Explore agent to understand the Astro project structure and content organization.
 
 ### 1c. WIP Branch Check (Bash)
 
@@ -134,7 +136,7 @@ git branch -a | grep -E "(fix|feat|chore|refactor|test|docs)/" || echo "No WIP b
 
 Fetch top 5 ready issues sorted by priority then size:
 ```bash
-gh issue list -R Rackarr/Rackarr --state open --label ready \
+gh issue list -R RackulaLives/www --state open --label ready \
   --json number,title,labels,body \
   --jq 'sort_by(
     (.labels | map(.name) | if any(test("priority:urgent")) then 0
@@ -217,7 +219,7 @@ For each acceptance criterion:
 ### 3d. Pre-Commit Verification
 
 ```bash
-npm run lint && npm run test:run && npm run build
+npm run build  # Add 'npm run test' when tests are configured
 ```
 
 If failures: see Error Recovery section.
@@ -251,7 +253,7 @@ Update progress file status to "Completed" with PR URL.
 
 ## Phase 4: Continue or Stop
 
-Check for more ready issues: `gh issue list -R Rackarr/Rackarr --state open --label ready --json number | jq 'length'`
+Check for more ready issues: `gh issue list -R RackulaLives/www --state open --label ready --json number | jq 'length'`
 
 **Continue if:** More issues exist AND in autonomous mode → Return to Phase 1
 **Stop if:** No issues remain, blocker hit, or user interruption
@@ -262,19 +264,20 @@ Write session summary when stopping.
 
 ## Error Recovery
 
-### Test Failures
+### Build/Test Failures
 
 | Attempt | Action |
 |---------|--------|
 | 1 | Read output, fix obvious issues |
 | 2 | Search memory for similar bugs: type="bugfix", query="<error keywords>" |
-| 3 | Launch Plan agent with test output, code, and memory context |
+| 3 | Launch Plan agent with build output, code, and memory context |
 | 4+ | Proceed to Blocker Handling |
 
-### Lint/Build Failures
+### Common Astro Issues
 
-Usually auto-fixable: `npm run lint -- --fix`
-If not, read error and fix manually.
+- **Missing imports:** Check component paths in `.astro` files
+- **Frontmatter errors:** Validate YAML/JS in `---` blocks
+- **Content collections:** Ensure schema matches content structure
 
 ---
 
