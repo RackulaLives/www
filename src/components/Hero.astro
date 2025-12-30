@@ -42,10 +42,13 @@ import Button from './Button.astro';
       </svg>
     </div>
 
+    <!-- Brand name -->
+    <h1 class="hero__title">Rackula</h1>
+
     <!-- Tagline -->
-    <h1 class="hero__tagline">
+    <p class="hero__tagline">
       Plan your homelab rack layout.
-    </h1>
+    </p>
 
     <!-- Subtext -->
     <p class="hero__subtext">
@@ -195,12 +198,21 @@ import Button from './Button.astro';
   }
 
   /* Typography */
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 500;
+    color: var(--colour-text-primary);
+    line-height: 1;
+    margin: 0;
+  }
+
   .hero__tagline {
     font-family: var(--font-mono);
-    font-size: var(--text-3xl);
-    font-weight: var(--font-semibold);
-    color: var(--colour-text-primary);
-    line-height: 1.2;
+    font-size: var(--text-xl);
+    font-weight: var(--font-normal);
+    color: var(--colour-text-secondary);
+    line-height: 1.4;
     margin: 0;
   }
 
@@ -224,7 +236,7 @@ import Button from './Button.astro';
   /* Desktop styles */
   @media (min-width: 640px) {
     .hero__tagline {
-      font-size: var(--text-4xl);
+      font-size: var(--text-2xl);
     }
 
     .hero__ctas {
