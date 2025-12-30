@@ -1,0 +1,200 @@
+---
+/**
+ * Hero — landing section with animated logo and CTAs
+ */
+import Button from './Button.astro';
+---
+
+<section class="hero">
+  <div class="hero__content">
+    <!-- Animated gradient logo -->
+    <div class="hero__logo" aria-hidden="true">
+      <svg
+        class="hero__logo-svg"
+        width="128"
+        height="128"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Rackula logo"
+      >
+        <defs>
+          <linearGradient id="hero-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="var(--colour-purple)" />
+            <stop offset="50%" stop-color="var(--colour-pink)" />
+            <stop offset="100%" stop-color="var(--colour-cyan)" />
+          </linearGradient>
+        </defs>
+
+        <!-- Outer frame -->
+        <rect
+          x="2"
+          y="2"
+          width="28"
+          height="28"
+          rx="2"
+          stroke="url(#hero-gradient)"
+          stroke-width="2"
+          fill="none"
+          class="hero__logo-frame"
+        />
+
+        <!-- Slots with staggered animation -->
+        <rect x="6" y="7" width="20" height="4" rx="1" class="hero__logo-slot hero__logo-slot--1" />
+        <rect x="6" y="14" width="20" height="4" rx="1" class="hero__logo-slot hero__logo-slot--2" />
+        <rect x="6" y="21" width="20" height="4" rx="1" class="hero__logo-slot hero__logo-slot--3" />
+      </svg>
+    </div>
+
+    <!-- Tagline -->
+    <h1 class="hero__tagline">
+      Plan your homelab rack layout.
+    </h1>
+
+    <!-- Subtext -->
+    <p class="hero__subtext">
+      Drag-and-drop planning. Export anywhere. Self-host forever.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero__ctas">
+      <Button href="https://count.racku.la" variant="primary" size="lg">
+        Start Planning
+      </Button>
+      <Button href="https://github.com/RackulaLives/Rackula" variant="secondary" size="lg">
+        View on GitHub
+      </Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: var(--space-8) var(--space-4);
+    background-color: var(--colour-bg-primary);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 48rem;
+    gap: var(--space-6);
+  }
+
+  /* Animated Logo */
+  .hero__logo {
+    margin-bottom: var(--space-4);
+  }
+
+  .hero__logo-svg {
+    filter: drop-shadow(0 0 20px var(--colour-glow-purple));
+  }
+
+  .hero__logo-frame {
+    animation: frame-glow 4s ease-in-out infinite;
+  }
+
+  .hero__logo-slot {
+    animation: slot-pulse 4s ease-in-out infinite;
+  }
+
+  .hero__logo-slot--1 {
+    fill: var(--colour-cyan);
+    animation-delay: 0s;
+  }
+
+  .hero__logo-slot--2 {
+    fill: var(--colour-green);
+    animation-delay: 0.5s;
+  }
+
+  .hero__logo-slot--3 {
+    fill: var(--colour-pink);
+    animation-delay: 1s;
+  }
+
+  @keyframes frame-glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 4px var(--colour-glow-purple));
+    }
+    50% {
+      filter: drop-shadow(0 0 12px var(--colour-glow-purple));
+    }
+  }
+
+  @keyframes slot-pulse {
+    0%, 100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__logo-frame,
+    .hero__logo-slot {
+      animation: none;
+    }
+
+    .hero__logo-slot--1,
+    .hero__logo-slot--2,
+    .hero__logo-slot--3 {
+      opacity: 1;
+    }
+  }
+
+  /* Typography */
+  .hero__tagline {
+    font-family: var(--font-mono);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-semibold);
+    color: var(--colour-text-primary);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .hero__subtext {
+    font-size: var(--text-lg);
+    color: var(--colour-text-secondary);
+    max-width: 32rem;
+    margin: 0;
+  }
+
+  /* CTAs */
+  .hero__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: 20rem;
+    margin-top: var(--space-4);
+  }
+
+  /* Desktop styles */
+  @media (min-width: 640px) {
+    .hero__tagline {
+      font-size: var(--text-4xl);
+    }
+
+    .hero__ctas {
+      flex-direction: row;
+      justify-content: center;
+      max-width: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      padding: var(--space-16) var(--space-8);
+    }
+  }
+</style>
