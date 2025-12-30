@@ -1,32 +1,34 @@
 ---
 /**
- * Logo — Rackula rack mark
- * Sharp-cornered rectangle with three horizontal slots (server rack abstraction)
+ * Logo — Rackula rack mark (v2 widow's peak)
+ * Sharp-cornered frame with V-notch at top and three horizontal slots
  */
 
 interface Props {
   variant?: 'solid' | 'gradient';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   class?: string;
 }
 
 const { variant = 'solid', size = 'md', class: className = '' } = Astro.props;
 
+// Sizes maintain 36:54 aspect ratio (2:3)
 const sizes = {
-  sm: 24,
-  md: 32,
-  lg: 48,
-  xl: 64,
+  sm: { width: 16, height: 24 },
+  md: { width: 24, height: 36 },
+  lg: { width: 32, height: 48 },
+  xl: { width: 48, height: 72 },
+  xxl: { width: 64, height: 96 },
 };
 
-const pixelSize = sizes[size];
+const { width, height } = sizes[size];
 ---
 
 <svg
   class:list={['logo', `logo--${variant}`, `logo--${size}`, className]}
-  width={pixelSize}
-  height={pixelSize}
-  viewBox="0 0 32 32"
+  width={width}
+  height={height}
+  viewBox="0 0 36 54"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
@@ -42,46 +44,37 @@ const pixelSize = sizes[size];
     </defs>
   )}
 
-  <!-- Outer frame -->
-  <rect
-    x="2"
-    y="2"
-    width="28"
-    height="28"
-    rx="2"
-    stroke={variant === 'gradient' ? 'url(#logo-gradient)' : 'currentColor'}
-    stroke-width="2"
-    fill="none"
+  <!-- Outer frame with widow's peak (v2) -->
+  <path
+    d="M0 0 L14 0 L18 6 L22 0 L36 0 L36 54 L0 54 Z"
+    fill={variant === 'gradient' ? 'url(#logo-gradient)' : 'currentColor'}
   />
 
-  <!-- Slot 1 (top) -->
+  <!-- Slot 1 (top) — negative space -->
   <rect
-    x="6"
-    y="7"
-    width="20"
-    height="4"
-    rx="1"
-    fill={variant === 'gradient' ? 'var(--colour-cyan)' : 'currentColor'}
+    x="5"
+    y="10"
+    width="26"
+    height="10"
+    fill={variant === 'gradient' ? 'var(--colour-cyan)' : 'var(--colour-bg-primary)'}
   />
 
-  <!-- Slot 2 (middle) -->
+  <!-- Slot 2 (middle) — negative space -->
   <rect
-    x="6"
-    y="14"
-    width="20"
-    height="4"
-    rx="1"
-    fill={variant === 'gradient' ? 'var(--colour-green)' : 'currentColor'}
+    x="5"
+    y="22"
+    width="26"
+    height="10"
+    fill={variant === 'gradient' ? 'var(--colour-green)' : 'var(--colour-bg-primary)'}
   />
 
-  <!-- Slot 3 (bottom) -->
+  <!-- Slot 3 (bottom) — negative space -->
   <rect
-    x="6"
-    y="21"
-    width="20"
-    height="4"
-    rx="1"
-    fill={variant === 'gradient' ? 'var(--colour-pink)' : 'currentColor'}
+    x="5"
+    y="34"
+    width="26"
+    height="10"
+    fill={variant === 'gradient' ? 'var(--colour-pink)' : 'var(--colour-bg-primary)'}
   />
 </svg>
 

@@ -1,19 +1,20 @@
 ---
 /**
  * Hero — landing section with animated logo and CTAs
+ * Uses v2 widow's peak mark with heartbeat animation timing
  */
 import Button from './Button.astro';
 ---
 
 <section class="hero">
   <div class="hero__content">
-    <!-- Animated gradient logo -->
+    <!-- Animated gradient logo (v2 widow's peak) -->
     <div class="hero__logo" aria-hidden="true">
       <svg
         class="hero__logo-svg"
-        width="128"
-        height="128"
-        viewBox="0 0 32 32"
+        width="72"
+        height="108"
+        viewBox="0 0 36 54"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
@@ -27,23 +28,17 @@ import Button from './Button.astro';
           </linearGradient>
         </defs>
 
-        <!-- Outer frame -->
-        <rect
-          x="2"
-          y="2"
-          width="28"
-          height="28"
-          rx="2"
-          stroke="url(#hero-gradient)"
-          stroke-width="2"
-          fill="none"
+        <!-- Outer frame with widow's peak (v2) -->
+        <path
+          d="M0 0 L14 0 L18 6 L22 0 L36 0 L36 54 L0 54 Z"
+          fill="url(#hero-gradient)"
           class="hero__logo-frame"
         />
 
-        <!-- Slots with staggered animation -->
-        <rect x="6" y="7" width="20" height="4" rx="1" class="hero__logo-slot hero__logo-slot--1" />
-        <rect x="6" y="14" width="20" height="4" rx="1" class="hero__logo-slot hero__logo-slot--2" />
-        <rect x="6" y="21" width="20" height="4" rx="1" class="hero__logo-slot hero__logo-slot--3" />
+        <!-- Slots with heartbeat staggered animation -->
+        <rect x="5" y="10" width="26" height="10" class="hero__logo-slot hero__logo-slot--1" />
+        <rect x="5" y="22" width="26" height="10" class="hero__logo-slot hero__logo-slot--2" />
+        <rect x="5" y="34" width="26" height="10" class="hero__logo-slot hero__logo-slot--3" />
       </svg>
     </div>
 
@@ -98,26 +93,27 @@ import Button from './Button.astro';
   }
 
   .hero__logo-frame {
-    animation: frame-glow 4s ease-in-out infinite;
+    animation: frame-glow 2s ease-in-out infinite;
   }
 
   .hero__logo-slot {
-    animation: slot-pulse 4s ease-in-out infinite;
+    animation: slot-pulse 2s ease-in-out infinite;
   }
 
+  /* Heartbeat timing: 2s cycle, 0.15s stagger */
   .hero__logo-slot--1 {
-    fill: var(--colour-cyan);
+    fill: var(--colour-bg-primary);
     animation-delay: 0s;
   }
 
   .hero__logo-slot--2 {
-    fill: var(--colour-green);
-    animation-delay: 0.5s;
+    fill: var(--colour-bg-primary);
+    animation-delay: 0.15s;
   }
 
   .hero__logo-slot--3 {
-    fill: var(--colour-pink);
-    animation-delay: 1s;
+    fill: var(--colour-bg-primary);
+    animation-delay: 0.3s;
   }
 
   @keyframes frame-glow {
@@ -125,16 +121,56 @@ import Button from './Button.astro';
       filter: drop-shadow(0 0 4px var(--colour-glow-purple));
     }
     50% {
-      filter: drop-shadow(0 0 12px var(--colour-glow-purple));
+      filter: drop-shadow(0 0 16px var(--colour-glow-purple));
     }
   }
 
   @keyframes slot-pulse {
     0%, 100% {
-      opacity: 0.7;
+      fill: var(--colour-bg-primary);
     }
     50% {
-      opacity: 1;
+      fill: var(--colour-cyan);
+    }
+  }
+
+  /* Slot-specific colours during pulse */
+  .hero__logo-slot--1 {
+    animation-name: slot-pulse-cyan;
+  }
+
+  .hero__logo-slot--2 {
+    animation-name: slot-pulse-green;
+  }
+
+  .hero__logo-slot--3 {
+    animation-name: slot-pulse-pink;
+  }
+
+  @keyframes slot-pulse-cyan {
+    0%, 100% {
+      fill: var(--colour-bg-primary);
+    }
+    50% {
+      fill: var(--colour-cyan);
+    }
+  }
+
+  @keyframes slot-pulse-green {
+    0%, 100% {
+      fill: var(--colour-bg-primary);
+    }
+    50% {
+      fill: var(--colour-green);
+    }
+  }
+
+  @keyframes slot-pulse-pink {
+    0%, 100% {
+      fill: var(--colour-bg-primary);
+    }
+    50% {
+      fill: var(--colour-pink);
     }
   }
 
@@ -145,10 +181,16 @@ import Button from './Button.astro';
       animation: none;
     }
 
-    .hero__logo-slot--1,
-    .hero__logo-slot--2,
+    .hero__logo-slot--1 {
+      fill: var(--colour-cyan);
+    }
+
+    .hero__logo-slot--2 {
+      fill: var(--colour-green);
+    }
+
     .hero__logo-slot--3 {
-      opacity: 1;
+      fill: var(--colour-pink);
     }
   }
 
@@ -190,11 +232,21 @@ import Button from './Button.astro';
       justify-content: center;
       max-width: none;
     }
+
+    .hero__logo-svg {
+      width: 96px;
+      height: 144px;
+    }
   }
 
   @media (min-width: 1024px) {
     .hero {
       padding: var(--space-16) var(--space-8);
+    }
+
+    .hero__logo-svg {
+      width: 108px;
+      height: 162px;
     }
   }
 </style>
