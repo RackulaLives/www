@@ -1,0 +1,30 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#282A36"/>
+
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="brand-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#BD93F9"/>
+      <stop offset="50%" stop-color="#FF79C6"/>
+      <stop offset="100%" stop-color="#8BE9FD"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Logo mark (widow's peak v2) - centred, scaled up -->
+  <g transform="translate(525, 140)">
+    <path d="M0 0 L56 0 L72 24 L88 0 L144 0 L144 216 L0 216 Z" fill="url(#brand-gradient)"/>
+    <rect x="20" y="40" width="104" height="40" fill="#8BE9FD"/>
+    <rect x="20" y="88" width="104" height="40" fill="#50FA7B"/>
+    <rect x="20" y="136" width="104" height="40" fill="#FF79C6"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="600" y="430" font-family="Space Grotesk, system-ui, sans-serif" font-size="72" font-weight="600" fill="#F8F8F2" text-anchor="middle">Rackula</text>
+
+  <!-- Tagline -->
+  <text x="600" y="490" font-family="JetBrains Mono, monospace" font-size="28" fill="#6272A4" text-anchor="middle">Plan your homelab rack layout</text>
+
+  <!-- URL -->
+  <text x="600" y="580" font-family="JetBrains Mono, monospace" font-size="24" fill="#BD93F9" text-anchor="middle">www.racku.la</text>
+</svg>

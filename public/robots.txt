@@ -1,0 +1,8 @@
+# Rackula Marketing Site
+# Allow all crawlers
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.racku.la/sitemap-index.xml
