@@ -11,7 +11,7 @@ interface Props {
 const {
   title,
   description,
-  ogImage = '/og-image.png',
+  ogImage = '/og-image.svg',
   canonicalUrl
 } = Astro.props;
 
@@ -78,6 +78,38 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
     <!-- Theme Color -->
     <meta name="theme-color" content="#282A36" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#FFFBEB" media="(prefers-color-scheme: light)" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Rackula",
+      "description": description,
+      "url": siteUrl,
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "RackulaLives",
+        "url": "https://github.com/RackulaLives"
+      }
+    })} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "RackulaLives",
+      "url": "https://github.com/RackulaLives",
+      "logo": `${siteUrl}/favicon.svg`,
+      "sameAs": [
+        "https://github.com/RackulaLives/Rackula"
+      ]
+    })} />
 
     <!-- Umami Analytics — self-hosted, privacy-respecting -->
     <script
