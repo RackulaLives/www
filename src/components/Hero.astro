@@ -8,7 +8,7 @@ import Button from './Button.astro';
 
 <section class="hero">
   <div class="hero__content">
-    <!-- Gradient logo (v2 widow's peak) — animates on hover -->
+    <!-- Logo mark (v2 widow's peak) — solid purple, animates on hover -->
     <div class="hero__logo" aria-hidden="true" tabindex="0">
       <svg
         class="hero__logo-svg"
@@ -20,18 +20,10 @@ import Button from './Button.astro';
         role="img"
         aria-label="Rackula logo"
       >
-        <defs>
-          <linearGradient id="hero-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="var(--colour-purple)" />
-            <stop offset="50%" stop-color="var(--colour-pink)" />
-            <stop offset="100%" stop-color="var(--colour-cyan)" />
-          </linearGradient>
-        </defs>
-
-        <!-- Outer frame with widow's peak (v2) -->
+        <!-- Outer frame with widow's peak (v2) — solid brand purple -->
         <path
           d="M0 0 L14 0 L18 6 L22 0 L36 0 L36 54 L0 54 Z"
-          fill="url(#hero-gradient)"
+          fill="var(--colour-purple)"
           class="hero__logo-frame"
         />
 
@@ -103,19 +95,11 @@ import Button from './Button.astro';
     transition: filter var(--duration-normal) var(--ease-default);
   }
 
-  /* Static slot colours by default */
-  .hero__logo-slot--1 {
-    fill: var(--colour-cyan);
-    transition: fill var(--duration-normal) var(--ease-default);
-  }
-
-  .hero__logo-slot--2 {
-    fill: var(--colour-green);
-    transition: fill var(--duration-normal) var(--ease-default);
-  }
-
+  /* Slots are background colour by default — colours reveal on hover */
+  .hero__logo-slot--1,
+  .hero__logo-slot--2,
   .hero__logo-slot--3 {
-    fill: var(--colour-pink);
+    fill: var(--colour-bg-primary);
     transition: fill var(--duration-normal) var(--ease-default);
   }
 
