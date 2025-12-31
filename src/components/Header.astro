@@ -1,7 +1,8 @@
 ---
 /**
  * Header — sticky navigation with logo, links, and theme toggle
- * Features backdrop blur on scroll and mobile hamburger menu
+ * Features backdrop blur on scroll, mobile hamburger menu,
+ * and CTA that appears only after Hero scrolls out of view
  */
 import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
@@ -121,6 +122,27 @@ const ctaLink = { label: 'Open App', href: 'https://count.racku.la' };
 
   window.addEventListener('scroll', updateHeaderState, { passive: true });
   updateHeaderState();
+
+  // Hero visibility detection — show CTA only when Hero is out of view
+  const hero = document.querySelector('.hero');
+
+  if (hero) {
+    const heroObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // When Hero is NOT intersecting (scrolled out of view), show header CTA
+          header?.classList.toggle('header--hero-hidden', !entry.isIntersecting);
+        });
+      },
+      {
+        // Trigger when Hero bottom edge crosses viewport top
+        rootMargin: '0px 0px 0px 0px',
+        threshold: 0
+      }
+    );
+
+    heroObserver.observe(hero);
+  }
 
   // Mobile menu toggle
   function toggleMenu() {
@@ -275,8 +297,20 @@ const ctaLink = { label: 'Open App', href: 'https://count.racku.la' };
     background-color: var(--colour-cyan);
     border-radius: var(--radius-md);
     text-decoration: none;
-    transition: transform var(--duration-fast) var(--ease-default),
+    /* Hidden by default — shown when Hero scrolls out of view */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity var(--duration-normal) var(--ease-default),
+                transform var(--duration-normal) var(--ease-default),
                 box-shadow var(--duration-fast) var(--ease-default);
+  }
+
+  /* Show CTA when Hero is no longer visible */
+  .header--hero-hidden .header__cta {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .header__cta:hover {
