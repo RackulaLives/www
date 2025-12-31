@@ -1,15 +1,15 @@
 ---
 /**
- * Hero — landing section with animated logo and CTAs
- * Uses v2 widow's peak mark with heartbeat animation timing
+ * Hero — landing section with logo and CTAs
+ * Uses v2 widow's peak mark with hover-triggered animation
  */
 import Button from './Button.astro';
 ---
 
 <section class="hero">
   <div class="hero__content">
-    <!-- Animated gradient logo (v2 widow's peak) -->
-    <div class="hero__logo" aria-hidden="true">
+    <!-- Gradient logo (v2 widow's peak) — animates on hover -->
+    <div class="hero__logo" aria-hidden="true" tabindex="0">
       <svg
         class="hero__logo-svg"
         width="72"
@@ -86,36 +86,70 @@ import Button from './Button.astro';
     gap: var(--space-6);
   }
 
-  /* Animated Logo */
+  /* Logo — static by default, animates on hover/focus */
   .hero__logo {
     margin-bottom: var(--space-4);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    outline: none;
+  }
+
+  .hero__logo:focus-visible {
+    box-shadow: var(--focus-ring);
   }
 
   .hero__logo-svg {
-    filter: drop-shadow(0 0 20px var(--colour-glow-purple));
+    filter: drop-shadow(0 0 8px var(--colour-glow-purple));
+    transition: filter var(--duration-normal) var(--ease-default);
   }
 
-  .hero__logo-frame {
-    animation: frame-glow 2s ease-in-out infinite;
-  }
-
-  .hero__logo-slot {
-    animation: slot-pulse 2s ease-in-out infinite;
-  }
-
-  /* Heartbeat timing: 2s cycle, 0.15s stagger */
+  /* Static slot colours by default */
   .hero__logo-slot--1 {
-    fill: var(--colour-bg-primary);
-    animation-delay: 0s;
+    fill: var(--colour-cyan);
+    transition: fill var(--duration-normal) var(--ease-default);
   }
 
   .hero__logo-slot--2 {
-    fill: var(--colour-bg-primary);
-    animation-delay: 0.15s;
+    fill: var(--colour-green);
+    transition: fill var(--duration-normal) var(--ease-default);
   }
 
   .hero__logo-slot--3 {
-    fill: var(--colour-bg-primary);
+    fill: var(--colour-pink);
+    transition: fill var(--duration-normal) var(--ease-default);
+  }
+
+  /* Hover/focus state — trigger animation */
+  .hero__logo:hover .hero__logo-svg,
+  .hero__logo:focus .hero__logo-svg {
+    filter: drop-shadow(0 0 20px var(--colour-glow-purple));
+  }
+
+  .hero__logo:hover .hero__logo-frame,
+  .hero__logo:focus .hero__logo-frame {
+    animation: frame-glow 2s ease-in-out infinite;
+  }
+
+  .hero__logo:hover .hero__logo-slot,
+  .hero__logo:focus .hero__logo-slot {
+    animation: slot-pulse 2s ease-in-out infinite;
+  }
+
+  .hero__logo:hover .hero__logo-slot--1,
+  .hero__logo:focus .hero__logo-slot--1 {
+    animation-name: slot-pulse-cyan;
+    animation-delay: 0s;
+  }
+
+  .hero__logo:hover .hero__logo-slot--2,
+  .hero__logo:focus .hero__logo-slot--2 {
+    animation-name: slot-pulse-green;
+    animation-delay: 0.15s;
+  }
+
+  .hero__logo:hover .hero__logo-slot--3,
+  .hero__logo:focus .hero__logo-slot--3 {
+    animation-name: slot-pulse-pink;
     animation-delay: 0.3s;
   }
 
@@ -128,72 +162,40 @@ import Button from './Button.astro';
     }
   }
 
-  @keyframes slot-pulse {
-    0%, 100% {
-      fill: var(--colour-bg-primary);
-    }
-    50% {
-      fill: var(--colour-cyan);
-    }
-  }
-
-  /* Slot-specific colours during pulse */
-  .hero__logo-slot--1 {
-    animation-name: slot-pulse-cyan;
-  }
-
-  .hero__logo-slot--2 {
-    animation-name: slot-pulse-green;
-  }
-
-  .hero__logo-slot--3 {
-    animation-name: slot-pulse-pink;
-  }
-
   @keyframes slot-pulse-cyan {
     0%, 100% {
-      fill: var(--colour-bg-primary);
+      fill: var(--colour-cyan);
     }
     50% {
-      fill: var(--colour-cyan);
+      fill: var(--colour-bg-primary);
     }
   }
 
   @keyframes slot-pulse-green {
     0%, 100% {
-      fill: var(--colour-bg-primary);
+      fill: var(--colour-green);
     }
     50% {
-      fill: var(--colour-green);
+      fill: var(--colour-bg-primary);
     }
   }
 
   @keyframes slot-pulse-pink {
     0%, 100% {
-      fill: var(--colour-bg-primary);
+      fill: var(--colour-pink);
     }
     50% {
-      fill: var(--colour-pink);
+      fill: var(--colour-bg-primary);
     }
   }
 
-  /* Respect reduced motion preference */
+  /* Respect reduced motion preference — no animation even on hover */
   @media (prefers-reduced-motion: reduce) {
-    .hero__logo-frame,
-    .hero__logo-slot {
+    .hero__logo:hover .hero__logo-frame,
+    .hero__logo:focus .hero__logo-frame,
+    .hero__logo:hover .hero__logo-slot,
+    .hero__logo:focus .hero__logo-slot {
       animation: none;
-    }
-
-    .hero__logo-slot--1 {
-      fill: var(--colour-cyan);
-    }
-
-    .hero__logo-slot--2 {
-      fill: var(--colour-green);
-    }
-
-    .hero__logo-slot--3 {
-      fill: var(--colour-pink);
     }
   }
 
