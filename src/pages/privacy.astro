@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const lastUpdated = '2026-06-26';
+---
+
+<BaseLayout
+  title="Privacy | Rackula"
+  description="Rackula's privacy stance: self-hosted analytics, no third-party trackers, no accounts, your layouts stay in your browser."
+>
+  <article class="privacy">
+    <div class="privacy__container">
+      <h1 class="privacy__title">Privacy</h1>
+      <p class="privacy__updated">Last updated: {lastUpdated}</p>
+
+      <h2 class="privacy__heading">The short version</h2>
+      <p>
+        Rackula doesn't track you across the web, doesn't sell anything, and
+        doesn't want your data. The marketing site (here) uses self-hosted
+        analytics that respect Do Not Track. The app (<a href="https://count.racku.la">count.racku.la</a>)
+        keeps your rack layouts in your browser's localStorage — there are no
+        accounts and no server-side storage of your plans.
+      </p>
+
+      <h2 class="privacy__heading">Analytics</h2>
+      <p>
+        This site is measured with <a href="https://umami.is">Umami</a>, self-hosted
+        on our own infrastructure. It collects aggregate, anonymised pageview
+        counts — no cookies, no fingerprinting, no cross-site tracking. We honour
+        your browser's Do Not Track setting.
+      </p>
+
+      <h2 class="privacy__heading">The app</h2>
+      <p>
+        Rackula the app runs client-side. Your rack layouts, device libraries,
+        and history live in your browser's localStorage. Clearing your browser
+        storage clears your data. Nothing about your rack is sent to any server.
+      </p>
+
+      <h2 class="privacy__heading">Self-hosting</h2>
+      <p>
+        Run it on your own hardware and none of the above even applies — your
+        data stays entirely on your network. See the
+        <a href="https://docs.racku.la/self-hosting">self-hosting guide</a>.
+      </p>
+
+      <h2 class="privacy__heading">Contact</h2>
+      <p>
+        Questions about this? Open an issue on
+        <a href="https://github.com/RackulaLives/Rackula">GitHub</a>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .privacy { padding: var(--space-16) var(--space-4); background-color: var(--colour-bg-primary); }
+  .privacy__container { max-width: 42rem; margin: 0 auto; }
+  .privacy__title { font-family: var(--font-display); font-size: var(--text-4xl); color: var(--colour-text-primary); margin: 0 0 var(--space-2); }
+  .privacy__updated { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--colour-text-secondary); margin: 0 0 var(--space-8); }
+  .privacy__heading { font-family: var(--font-mono); font-size: var(--text-xl); color: var(--colour-pink); margin: var(--space-8) 0 var(--space-3); }
+  .privacy p { color: var(--colour-text-primary); line-height: 1.7; margin-bottom: var(--space-4); }
+  .privacy a { color: var(--colour-link); }
+  .privacy a:hover { color: var(--colour-link-hover); }
+</style>
