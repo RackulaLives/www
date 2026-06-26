@@ -1,0 +1,9 @@
+name = "rackula-www"
+compatibility_date = "2026-06-26"
+
+[assets]
+directory = "./dist"
+# Serve /404.html for missing paths (Astro outputs 404.html from src/pages/404.astro)
+not_found_handling = "404-page"
+# Serve HTML without trailing-slash juggling; Astro static output is already correct
+html_handling = "auto-trailing-slash"
