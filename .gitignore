@@ -23,3 +23,6 @@ settings.local.json
 
 # jetbrains setting folder
 .idea/
+
+# Superpowers SDD scratch
+.superpowers/
