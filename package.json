@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "gen:icons": "node scripts/generate-icons.mjs",
+    "gen:og": "node scripts/generate-og.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
@@ -14,5 +16,8 @@
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@fontsource/space-grotesk": "^5.2.10",
     "astro": "^5.16.6"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
   }
 }
