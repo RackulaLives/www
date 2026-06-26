@@ -1,0 +1,9 @@
+[
+  {
+    "name": "v0.0.0-injection-test",
+    "tag_name": "v0.0.0-injection-test",
+    "published_at": "2026-06-26T00:00:00Z",
+    "html_url": "https://github.com/RackulaLives/Rackula/releases/tag/v0.0.0-injection-test",
+    "body": "Normal line.\n\n<script>alert('xss')</script>\n\n<img src=x onerror=alert(1)>\n\nLine with <b>bold</b> and & ampersand."
+  }
+]
