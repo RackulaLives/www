@@ -8,8 +8,10 @@ import Button from './Button.astro';
 
 <section class="hero">
   <div class="hero__content">
-    <!-- Logo mark (v2 widow's peak) — solid purple, animates on hover -->
-    <div class="hero__logo" aria-hidden="true" tabindex="0">
+    <!-- Logo mark (v2 widow's peak) — solid purple, animates on hover.
+         Decorative: aria-hidden keeps it out of the a11y tree, so tabindex
+         is removed to avoid the aria-hidden + focusable contradiction. -->
+    <div class="hero__logo" aria-hidden="true">
       <svg
         class="hero__logo-svg"
         width="72"
@@ -208,7 +210,7 @@ import Button from './Button.astro';
 
   .hero__subtext {
     font-size: var(--text-lg);
-    color: var(--colour-text-secondary);
+    color: var(--colour-text-muted);
     max-width: 32rem;
     margin: 0;
   }
