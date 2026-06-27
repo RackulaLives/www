@@ -46,11 +46,10 @@ export function escapeReleaseBody(body: string | null): string {
 }
 
 export function releaseDate(iso: string): string {
-  try {
-    return new Date(iso).toLocaleDateString('en-CA', {
-      year: 'numeric', month: 'short', day: 'numeric',
-    });
-  } catch {
-    return iso;
-  }
+  // new Date() returns an Invalid Date (never throws) for malformed input;
+  // fall back to the raw string rather than rendering "Invalid Date".
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime())
+    ? iso
+    : d.toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
 }
