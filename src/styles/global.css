@@ -20,6 +20,10 @@
   /* Text */
   --colour-text-primary: #F8F8F2;
   --colour-text-secondary: #6272A4;
+  /* Muted text — passes WCAG AA 4.5:1 on --colour-bg-primary (#282A36).
+     Used for .hero__subtext and .step__description where --colour-text-secondary
+     (#6272A4, 3.03:1) fails contrast. Computed ratio: 7.98:1. */
+  --colour-text-muted: #BDC1D6;
 
   /* Accent Colours */
   --colour-purple: #BD93F9;
@@ -117,6 +121,9 @@
   /* Text */
   --colour-text-primary: #1F1F1F;
   --colour-text-secondary: #6C664B;
+  /* Muted text — passes WCAG AA 4.5:1 on --colour-bg-primary (#FFFBEB).
+     Reuses the light secondary value (5.56:1). */
+  --colour-text-muted: #6C664B;
 
   /* Accent Colours — darker for contrast */
   --colour-purple: #644AC9;
@@ -149,6 +156,7 @@
     --colour-selection: #CFCFDE;
     --colour-text-primary: #1F1F1F;
     --colour-text-secondary: #6C664B;
+    --colour-text-muted: #6C664B;
     --colour-purple: #644AC9;
     --colour-pink: #A3144D;
     --colour-cyan: #036A96;

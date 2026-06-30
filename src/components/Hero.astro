@@ -8,8 +8,10 @@ import Button from './Button.astro';
 
 <section class="hero">
   <div class="hero__content">
-    <!-- Logo mark (v2 widow's peak) — solid purple, animates on hover -->
-    <div class="hero__logo" aria-hidden="true" tabindex="0">
+    <!-- Logo mark (v2 widow's peak) — solid purple, animates on hover.
+         Decorative: aria-hidden keeps it out of the a11y tree, so tabindex
+         is removed to avoid the aria-hidden + focusable contradiction. -->
+    <div class="hero__logo" aria-hidden="true">
       <svg
         class="hero__logo-svg"
         width="72"
@@ -78,16 +80,12 @@ import Button from './Button.astro';
     gap: var(--space-6);
   }
 
-  /* Logo — static by default, animates on hover/focus */
+  /* Logo — static by default, animates on hover (decorative: not focusable) */
   .hero__logo {
     margin-bottom: var(--space-4);
     cursor: pointer;
     border-radius: var(--radius-md);
     outline: none;
-  }
-
-  .hero__logo:focus-visible {
-    box-shadow: var(--focus-ring);
   }
 
   .hero__logo-svg {
@@ -103,36 +101,30 @@ import Button from './Button.astro';
     transition: fill var(--duration-normal) var(--ease-default);
   }
 
-  /* Hover/focus state — trigger animation */
-  .hero__logo:hover .hero__logo-svg,
-  .hero__logo:focus .hero__logo-svg {
+  /* Hover state — trigger animation */
+  .hero__logo:hover .hero__logo-svg {
     filter: drop-shadow(0 0 20px var(--colour-glow-purple));
   }
 
-  .hero__logo:hover .hero__logo-frame,
-  .hero__logo:focus .hero__logo-frame {
+  .hero__logo:hover .hero__logo-frame {
     animation: frame-glow 2s ease-in-out infinite;
   }
 
-  .hero__logo:hover .hero__logo-slot,
-  .hero__logo:focus .hero__logo-slot {
+  .hero__logo:hover .hero__logo-slot {
     animation: slot-pulse 2s ease-in-out infinite;
   }
 
-  .hero__logo:hover .hero__logo-slot--1,
-  .hero__logo:focus .hero__logo-slot--1 {
+  .hero__logo:hover .hero__logo-slot--1 {
     animation-name: slot-pulse-cyan;
     animation-delay: 0s;
   }
 
-  .hero__logo:hover .hero__logo-slot--2,
-  .hero__logo:focus .hero__logo-slot--2 {
+  .hero__logo:hover .hero__logo-slot--2 {
     animation-name: slot-pulse-green;
     animation-delay: 0.15s;
   }
 
-  .hero__logo:hover .hero__logo-slot--3,
-  .hero__logo:focus .hero__logo-slot--3 {
+  .hero__logo:hover .hero__logo-slot--3 {
     animation-name: slot-pulse-pink;
     animation-delay: 0.3s;
   }
@@ -176,9 +168,7 @@ import Button from './Button.astro';
   /* Respect reduced motion preference — no animation even on hover */
   @media (prefers-reduced-motion: reduce) {
     .hero__logo:hover .hero__logo-frame,
-    .hero__logo:focus .hero__logo-frame,
-    .hero__logo:hover .hero__logo-slot,
-    .hero__logo:focus .hero__logo-slot {
+    .hero__logo:hover .hero__logo-slot {
       animation: none;
     }
   }
@@ -208,7 +198,7 @@ import Button from './Button.astro';
 
   .hero__subtext {
     font-size: var(--text-lg);
-    color: var(--colour-text-secondary);
+    color: var(--colour-text-muted);
     max-width: 32rem;
     margin: 0;
   }

@@ -1,0 +1,5 @@
+# Apex → www canonicalisation (www.racku.la is the canonical host)
+https://racku.la/* https://www.racku.la/:splat 301
+
+# (Legacy www/apex → count.racku.la 301 is removed on the Cloudflare side,
+#  not here — it was a DNS/proxy-level redirect rule, not a _redirects entry.)
