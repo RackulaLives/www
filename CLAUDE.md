@@ -10,7 +10,7 @@ Marketing homepage for Rackula — a FOSS rack layout designer for homelabbers.
 
 ## Stack
 
-- Astro 5.x (static site)
+- Astro 7.x (static site)
 - No CSS framework — use Dracula colour tokens from brand guide
 - No client-side JS unless necessary
 

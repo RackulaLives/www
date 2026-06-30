@@ -73,8 +73,10 @@ const ctaLink = { label: 'Open App', href: 'https://count.racku.la' };
       </button>
     </div>
 
-  <!-- Mobile drawer -->
-  <div class="header__drawer" id="mobile-menu" aria-hidden="true">
+  <!-- Mobile drawer — inert + aria-hidden when closed so focusable
+       links are removed from the a11y tree and tab order (Lighthouse
+       aria-hidden-focusable audit). Both are toggled in the script below. -->
+  <div class="header__drawer" id="mobile-menu" aria-hidden="true" inert>
     <nav class="header__drawer-nav" aria-label="Mobile navigation">
       <ul class="header__drawer-links">
         {navLinks.map((link) => (
@@ -96,6 +98,7 @@ const ctaLink = { label: 'Open App', href: 'https://count.racku.la' };
         </li>
       </ul>
     </nav>
+  </div>
   </div>
 </header>
 
@@ -149,6 +152,9 @@ const ctaLink = { label: 'Open App', href: 'https://count.racku.la' };
     const isOpen = menuBtn?.getAttribute('aria-expanded') === 'true';
     menuBtn?.setAttribute('aria-expanded', String(!isOpen));
     drawer?.setAttribute('aria-hidden', String(isOpen));
+    // Toggle inert so focusable descendants are removed from the tab order
+    // and accessibility tree when the drawer is closed.
+    if (drawer) drawer.inert = isOpen;
     header?.classList.toggle('header--menu-open', !isOpen);
 
     // Prevent body scroll when menu is open

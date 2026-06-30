@@ -1,5 +1,16 @@
 ---
 import '../styles/global.css';
+// Self-hosted fonts — replaces Google Fonts (no external runtime dependency)
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/600.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+
 import Header from '../components/Header.astro';
 
 interface Props {
@@ -12,7 +23,7 @@ interface Props {
 const {
   title,
   description,
-  ogImage = '/og-image.svg',
+  ogImage = '/og-image.png',
   canonicalUrl
 } = Astro.props;
 
@@ -39,19 +50,6 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Font Loading — preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
-    />
-
     <!-- Primary Meta Tags -->
     <title>{fullTitle}</title>
     <meta name="title" content={fullTitle} />
@@ -60,6 +58,10 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/favicon.svg" color="#BD93F9" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -111,13 +113,6 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
         "https://github.com/RackulaLives/Rackula"
       ]
     })} />
-
-    <!-- Umami Analytics — self-hosted, privacy-respecting -->
-    <script
-      defer
-      src="https://t.racku.la/script.js"
-      data-website-id="b9151f24-f46e-457c-b666-ce3b4fae6f30"
-    ></script>
 
     <slot name="head" />
   </head>
