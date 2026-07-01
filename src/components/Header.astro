@@ -5,7 +5,6 @@
  * and CTA that appears only after Hero scrolls out of view
  */
 import Logo from './Logo.astro';
-import ThemeToggle from './ThemeToggle.astro';
 
 const navLinks = [
   { label: 'How It Works', href: '#how-it-works' },
@@ -51,9 +50,8 @@ const ctaLink = { label: 'Open App', href: 'https://count.racku.la' };
       </a>
     </div>
 
-    <!-- Mobile actions (theme toggle + hamburger) -->
+    <!-- Mobile actions (hamburger) -->
     <div class="header__mobile-actions">
-      <ThemeToggle />
       <button
         class="header__menu-btn"
         type="button"
@@ -440,7 +438,9 @@ const ctaLink = { label: 'Open App', href: 'https://count.racku.la' };
     }
 
     .header__nav {
-      display: block;
+      display: flex;
+      flex: 1;
+      justify-content: center;
     }
 
     .header__actions {
