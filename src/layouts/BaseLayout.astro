@@ -36,19 +36,12 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Theme initialization — must run before any rendering to prevent flash -->
-    <script is:inline>
-      (function() {
-        const saved = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = saved || (prefersDark ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-      })();
-    </script>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <!-- Dark-only site. Declaring the colour scheme keeps native UI dark and
+         tells dark-theme detectors (e.g. Dark Reader) not to re-invert it. -->
+    <meta name="color-scheme" content="dark" />
 
     <!-- Primary Meta Tags -->
     <title>{fullTitle}</title>
@@ -57,6 +50,7 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
     <link rel="canonical" href={canonical} />
 
     <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
@@ -79,8 +73,7 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
     <meta property="twitter:image" content={ogImageUrl} />
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#282A36" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#FFFBEB" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#282A36" />
 
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify({

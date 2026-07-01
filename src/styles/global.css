@@ -9,6 +9,10 @@
    ============================================ */
 
 :root {
+  /* Dark-only site — keeps native form controls, scrollbars, and dark-theme
+     detectors (e.g. Dark Reader) aligned with the Dracula palette. */
+  color-scheme: dark;
+
   /* Backgrounds */
   --colour-bg-darkest: #191A21;
   --colour-bg-darker: #21222C;
@@ -103,74 +107,6 @@
   --duration-normal: 200ms;
   --duration-slow: 300ms;
   --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ============================================
-   Alucard Light Mode
-   ============================================ */
-
-:root[data-theme="light"] {
-  /* Backgrounds */
-  --colour-bg-darkest: #BCBAB3;
-  --colour-bg-darker: #CECCC0;
-  --colour-bg-primary: #FFFBEB;
-  --colour-bg-light: #DEDCCF;
-  --colour-bg-lighter: #ECE9DF;
-  --colour-selection: #CFCFDE;
-
-  /* Text */
-  --colour-text-primary: #1F1F1F;
-  --colour-text-secondary: #6C664B;
-  /* Muted text — passes WCAG AA 4.5:1 on --colour-bg-primary (#FFFBEB).
-     Reuses the light secondary value (5.56:1). */
-  --colour-text-muted: #6C664B;
-
-  /* Accent Colours — darker for contrast */
-  --colour-purple: #644AC9;
-  --colour-pink: #A3144D;
-  --colour-cyan: #036A96;
-  --colour-green: #14710A;
-  --colour-orange: #A34D14;
-  --colour-red: #CB3A2A;
-  --colour-yellow: #846E15;
-
-  /* Glows — softer */
-  --colour-glow-cyan: rgba(3, 106, 150, 0.2);
-  --colour-glow-purple: rgba(100, 74, 201, 0.2);
-  --colour-glow-green: rgba(20, 113, 10, 0.2);
-
-  /* Shadows — softer */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* System preference fallback */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --colour-bg-darkest: #BCBAB3;
-    --colour-bg-darker: #CECCC0;
-    --colour-bg-primary: #FFFBEB;
-    --colour-bg-light: #DEDCCF;
-    --colour-bg-lighter: #ECE9DF;
-    --colour-selection: #CFCFDE;
-    --colour-text-primary: #1F1F1F;
-    --colour-text-secondary: #6C664B;
-    --colour-text-muted: #6C664B;
-    --colour-purple: #644AC9;
-    --colour-pink: #A3144D;
-    --colour-cyan: #036A96;
-    --colour-green: #14710A;
-    --colour-orange: #A34D14;
-    --colour-red: #CB3A2A;
-    --colour-yellow: #846E15;
-    --colour-glow-cyan: rgba(3, 106, 150, 0.2);
-    --colour-glow-purple: rgba(100, 74, 201, 0.2);
-    --colour-glow-green: rgba(20, 113, 10, 0.2);
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  }
 }
 
 /* ============================================
