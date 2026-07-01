@@ -32,4 +32,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Wrangler 4 consumes _headers/_redirects as config for static assets.
+          # Wrangler 3 uploaded them as servable files, so headers never applied.
+          wranglerVersion: '4.106.0'
           command: deploy

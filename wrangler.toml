@@ -1,14 +1,9 @@
 name = "rackula-www"
 compatibility_date = "2026-06-26"
 
-# Bind both hostnames to this Worker so the domain serves the site on deploy.
-# Apex is bound too — public/_redirects only fires its racku.la → www 301 if the
-# apex request actually reaches the Worker. Requires the deploy token to have
-# Workers Routes + DNS edit on the racku.la zone.
-routes = [
-  { pattern = "www.racku.la", custom_domain = true },
-  { pattern = "racku.la", custom_domain = true },
-]
+# Custom domains (www.racku.la + apex racku.la) are bound to this Worker as
+# Cloudflare Custom Domains, managed in the dashboard — not declared here. The
+# deploy token only needs Workers Scripts edit; it does not manage routes/DNS.
 
 [assets]
 directory = "./dist"
