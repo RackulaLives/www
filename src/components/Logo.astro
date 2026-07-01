@@ -1,7 +1,11 @@
 ---
 /**
- * Logo — Rackula rack mark (v2 widow's peak)
- * Sharp-cornered frame with V-notch at top and three horizontal slots
+ * Logo — Rackula rack mark (coffin taper)
+ *
+ * Coffin-tapered rack frame with a fang notch: curved shoulders, sides that
+ * narrow toward the base, and three device slots that shrink with the taper.
+ * Canonical geometry lives in the app repo's src/lib/components/logo-geometry.ts
+ * (56x80 grid); kept in sync here for the marketing site.
  */
 
 interface Props {
@@ -12,13 +16,13 @@ interface Props {
 
 const { variant = 'solid', size = 'md', class: className = '' } = Astro.props;
 
-// Sizes maintain 36:54 aspect ratio (2:3)
+// Sizes maintain the 56:80 (7:10) aspect ratio of the coffin mark.
 const sizes = {
-  sm: { width: 16, height: 24 },
-  md: { width: 24, height: 36 },
-  lg: { width: 32, height: 48 },
-  xl: { width: 48, height: 72 },
-  xxl: { width: 64, height: 96 },
+  sm: { width: 17, height: 24 },
+  md: { width: 25, height: 36 },
+  lg: { width: 34, height: 48 },
+  xl: { width: 50, height: 72 },
+  xxl: { width: 67, height: 96 },
 };
 
 const { width, height } = sizes[size];
@@ -28,7 +32,7 @@ const { width, height } = sizes[size];
   class:list={['logo', `logo--${variant}`, `logo--${size}`, className]}
   width={width}
   height={height}
-  viewBox="0 0 36 54"
+  viewBox="0 0 56 80"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
@@ -44,36 +48,39 @@ const { width, height } = sizes[size];
     </defs>
   )}
 
-  <!-- Outer frame with widow's peak (v2) -->
+  <!-- Coffin outline with fang notch -->
   <path
-    d="M0 0 L14 0 L18 6 L22 0 L36 0 L36 54 L0 54 Z"
+    d="M1.5 0Q0 0 0 1.5L0 16.5L2.6 77.5Q2.6 80 5.1 80L50.9 80Q53.4 80 53.4 77.5L56 16.5L56 1.5Q56 0 54.5 0L39.5 0Q38.2 0 37 2.6L28 17.8L19 2.6Q17.8 0 16.5 0Z"
     fill={variant === 'gradient' ? 'url(#logo-gradient)' : 'currentColor'}
   />
 
-  <!-- Slot 1 (top) — negative space -->
+  <!-- Slot 1 (top) — tapered device bay -->
   <rect
-    x="5"
-    y="10"
-    width="26"
-    height="10"
+    x="5.6"
+    y="21.5"
+    width="44.8"
+    height="13"
+    rx="2"
     fill={variant === 'gradient' ? 'var(--colour-cyan)' : 'var(--colour-bg-primary)'}
   />
 
-  <!-- Slot 2 (middle) — negative space -->
+  <!-- Slot 2 (middle) -->
   <rect
-    x="5"
-    y="22"
-    width="26"
-    height="10"
+    x="7.4"
+    y="40.5"
+    width="41.2"
+    height="13"
+    rx="2"
     fill={variant === 'gradient' ? 'var(--colour-green)' : 'var(--colour-bg-primary)'}
   />
 
-  <!-- Slot 3 (bottom) — negative space -->
+  <!-- Slot 3 (bottom) -->
   <rect
-    x="5"
-    y="34"
-    width="26"
-    height="10"
+    x="9.2"
+    y="59.5"
+    width="37.6"
+    height="13"
+    rx="2"
     fill={variant === 'gradient' ? 'var(--colour-pink)' : 'var(--colour-bg-primary)'}
   />
 </svg>

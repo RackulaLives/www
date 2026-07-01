@@ -7,22 +7,17 @@ import SectionHeader from './SectionHeader.astro';
 import CodeWindow from './CodeWindow.astro';
 import Button from './Button.astro';
 
-const dockerRunCode = `docker run -d \\
-  --name rackula \\
-  -p 3000:3000 \\
-  ghcr.io/rackulalives/rackula:latest`;
+const quickStartCode = `# Grab the persistence stack (frontend + API + data volume)
+curl -fsSL https://raw.githubusercontent.com/RackulaLives/Rackula/main/deploy/docker-compose.persist.yml -o docker-compose.yml
 
-const dockerComposeCode = `services:
-  rackula:
-    image: ghcr.io/rackulalives/rackula:latest
-    container_name: rackula
-    ports:
-      - "3000:3000"
-    restart: unless-stopped`;
+# Create the data directory, owned by the container's non-root user
+mkdir -p data && sudo chown 1001:1001 data
+
+# Start Rackula — now serving at http://localhost:8080
+docker compose up -d`;
 
 const tabs = [
-  { label: 'docker run', code: dockerRunCode, language: 'bash' as const },
-  { label: 'docker-compose.yml', code: dockerComposeCode, language: 'yaml' as const },
+  { label: 'quick start', code: quickStartCode, language: 'bash' as const },
 ];
 ---
 
@@ -33,12 +28,13 @@ const tabs = [
     <div class="self-host__content">
       <div class="self-host__text">
         <p class="self-host__intro">
-          Run Rackula on your own hardware. One command is all it takes.
+          Run the full Rackula stack on your own hardware — frontend, API, and
+          server-side persistence. Three commands and you're live.
         </p>
         <ul class="self-host__benefits">
           <li>Your data stays on your network</li>
-          <li>No account required</li>
-          <li>Works offline after first load</li>
+          <li>Server-side persistence — layouts survive browser resets</li>
+          <li>No account required — authentication is opt-in</li>
         </ul>
 
         <!-- Trust signals -->
