@@ -1,38 +1,38 @@
 ---
 /**
  * Hero — landing section with logo and CTAs
- * Uses v2 widow's peak mark with hover-triggered animation
+ * Uses the coffin-taper mark with hover-triggered animation
  */
 import Button from './Button.astro';
 ---
 
 <section class="hero">
   <div class="hero__content">
-    <!-- Logo mark (v2 widow's peak) — solid purple, animates on hover.
+    <!-- Logo mark (coffin taper) — solid purple, animates on hover.
          Decorative: aria-hidden keeps it out of the a11y tree, so tabindex
          is removed to avoid the aria-hidden + focusable contradiction. -->
     <div class="hero__logo" aria-hidden="true">
       <svg
         class="hero__logo-svg"
-        width="72"
+        width="76"
         height="108"
-        viewBox="0 0 36 54"
+        viewBox="0 0 56 80"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
         aria-label="Rackula logo"
       >
-        <!-- Outer frame with widow's peak (v2) — solid brand purple -->
+        <!-- Coffin outline with fang notch — solid brand purple -->
         <path
-          d="M0 0 L14 0 L18 6 L22 0 L36 0 L36 54 L0 54 Z"
+          d="M1.5 0Q0 0 0 1.5L0 16.5L2.6 77.5Q2.6 80 5.1 80L50.9 80Q53.4 80 53.4 77.5L56 16.5L56 1.5Q56 0 54.5 0L39.5 0Q38.2 0 37 2.6L28 17.8L19 2.6Q17.8 0 16.5 0Z"
           fill="var(--colour-purple)"
           class="hero__logo-frame"
         />
 
-        <!-- Slots with heartbeat staggered animation -->
-        <rect x="5" y="10" width="26" height="10" class="hero__logo-slot hero__logo-slot--1" />
-        <rect x="5" y="22" width="26" height="10" class="hero__logo-slot hero__logo-slot--2" />
-        <rect x="5" y="34" width="26" height="10" class="hero__logo-slot hero__logo-slot--3" />
+        <!-- Tapered device bays with heartbeat staggered animation -->
+        <rect x="5.6" y="21.5" width="44.8" height="13" rx="2" class="hero__logo-slot hero__logo-slot--1" />
+        <rect x="7.4" y="40.5" width="41.2" height="13" rx="2" class="hero__logo-slot hero__logo-slot--2" />
+        <rect x="9.2" y="59.5" width="37.6" height="13" rx="2" class="hero__logo-slot hero__logo-slot--3" />
       </svg>
     </div>
 
@@ -226,7 +226,7 @@ import Button from './Button.astro';
     }
 
     .hero__logo-svg {
-      width: 96px;
+      width: 101px;
       height: 144px;
     }
   }
@@ -237,7 +237,7 @@ import Button from './Button.astro';
     }
 
     .hero__logo-svg {
-      width: 108px;
+      width: 113px;
       height: 162px;
     }
   }
